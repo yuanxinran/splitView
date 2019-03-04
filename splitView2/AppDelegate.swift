@@ -16,6 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        guard let splitViewController = window?.rootViewController as? UISplitViewController,
+            let leftNavController = splitViewController.viewControllers.first as? UINavigationController,
+            let listViewController = leftNavController.topViewController as? ListViewController,
+            let detailViewController = splitViewController.viewControllers.last as? DetailViewController
+            else { fatalError() }
+        
+        let firstAnimal = listViewController.animals.first
+        detailViewController.animal = firstAnimal
+        listViewController.delegate = detailViewController
+        
         return true
     }
 
